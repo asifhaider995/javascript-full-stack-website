@@ -7,7 +7,6 @@
 
 const loopback = require('loopback');
 const boot = require('loopback-boot');
-
 const app = module.exports = loopback();
 
 app.start = function() {
@@ -64,4 +63,32 @@ app.models.user.afterRemote('create', (ctx, user, next) => {
       }
     })
     next();
+})
+
+
+/// Role mapping -> Admin Role
+// Filter used inside find()
+app.models.Role.find({where: {name: 'admin'}}, (err, role) => {
+  if(!err && role) {
+    console.log("Role present, role is ", role);
+    if(role.length === 0) {
+      app.models.Role.create({
+        name: 'admin',
+      }, (roleErr, roleRes) => {
+        if(!roleErr && roleRes) {
+          console.log("Role created, result: ",roleRes);
+          app.models.user.findOne( (userErr, user) => {
+            if(!userErr && user) {
+              roleRes.principals.create({
+                principalType: app.models.RoleMapping.USER,
+                principalId: user.id,
+              }, (principalErr, principal) => {
+                console.log('Created principal?', principalErr, principal);
+              })
+            }
+          })
+        }
+      })
+    }
+  }
 })

@@ -30,16 +30,16 @@ var models = require('./server.js').models;
 // }) // Updates profile
 
 
-models.Profile.findOrCreate({name: "Asif"}, (error, profile) => {
-  if(error) {
-    console.error("Error Occured")
-  } else if(profile) {
-    profile.email = "asif.haider@northsouth.edu",
-    profile.save((updateErr, updated) = {
-      console.log("Updated?: ", updateErr, updated);
-    });
-  }
-}) // Updates profile
+// models.Profile.findOrCreate({name: "Asif"}, (error, profile) => {
+//   if(error) {
+//     console.error("Error Occured")
+//   } else if(profile) {
+//     profile.email = "asif.haider@northsouth.edu",
+//     profile.save((updateErr, updated) = {
+//       console.log("Updated?: ", updateErr, updated);
+//     });
+//   }
+// }) // Updates profile
 
 /////////  Finding Model Instances  ////////////////
 
@@ -66,18 +66,18 @@ var filter = {
   order: 'date ASC', //
   limit: 10
 }
-
-var filter2 = {
-  where: {
-    name: {like: "F"}
-  },
-  order: 'date ASC', //
-  limit: 10,
-  skip: 0,
-  fields: {
-    email: true  // Returns only email
-  }
-}
+//
+// var filter2 = {
+//   where: {
+//     name: {like: "F"}
+//   },
+//   order: 'date ASC', //
+//   limit: 10,
+//   skip: 0,
+//   fields: {
+//     email: true  // Returns only email
+//   }
+// }
 
 // models.Profile.findOne({where: {name: 'Asif'}, order: 'id DESC'}, (err, found) => {
 //   console.log("Found?: ", err, found)
@@ -87,8 +87,34 @@ var filter2 = {
 //   console.log("Found?: ", err, found)
 // })
 
-models.Profile.findOne(filter2, (err, found) => {
-  console.log("Found?: ", err, found)
-})
+// models.Profile.findOne(filter2, (err, found) => {
+//   console.log("Found?: ", err, found)
+// })
 
 /////////  Deleting Model Instances  ////////////////
+
+// models.Profile.findById("5f50dab03a05169d85ede980", (err, found) => {
+//   console.log('Found?: ', err, found);
+//   if(found) {
+//     found.destroy();
+//   }
+// })
+
+// models.Profile.destroyById("5f50dab03a05169d85ede980", (err, found) => {
+//   console.log('Found?: ', err, found);
+//   if(found) {
+//     found.destroy();
+//   }
+// })
+
+
+models.Profile.destroyAll(filter.where , (err, destroyed) => {
+  console.log('Destroyed? ',err,destroyed);
+})
+
+// models.Profile.findById("5f50dab03a05169d85ede980", {include: 'Posts'}, (err, found) => {
+//   console.log('Found?: ', err, found);
+//   if(found) {
+//     found.Posts.destroyAll({date: {lte: new Date('2019-02-04')}})
+//   }
+// })  // Destroys all post prior to a specific date, from user of Id ...
