@@ -66,7 +66,7 @@ app.models.user.afterRemote('create', (ctx, user, next) => {
 })
 
 
-/// Role mapping -> Admin Role
+/// Role mapping -> 'admin' Role creation
 // Filter used inside find()
 app.models.Role.find({where: {name: 'admin'}}, (err, role) => {
   if(!err && role) {
@@ -87,6 +87,21 @@ app.models.Role.find({where: {name: 'admin'}}, (err, role) => {
               })
             }
           })
+        }
+      })
+    }
+  }
+});
+
+
+app.models.Role.find({where: {name: 'editor'}}, (roleErr, role) => {
+  if( !roleErr && role) {
+    if(role.length === 0) {
+      app.models.Role.create({
+        name: 'editor',
+      }, (createErr, created) => {
+        if(!createErr && created) {
+          console.log("Created?", createErr, created);
         }
       })
     }
