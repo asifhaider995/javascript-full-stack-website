@@ -14,6 +14,7 @@ import Portfolio from './pages/Portfolio';
 import About from './pages/About';
 import Team from './pages/Team';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
 import Footer from './pages/Footer';
 
 /////////// Components //////////////
@@ -33,6 +34,7 @@ function App() {
         <Route exact path='/about' component={About} />
         <Route exact path='/team' component={Team} />
         <Route exact path='/contact' component={Contact} />
+        <Route exact path='/login' component={Login} />
         <Footer />
       </Router>
     </div>
