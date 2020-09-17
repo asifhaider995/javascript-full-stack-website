@@ -1,10 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Grid, Typography, Checkbox, Button, Paper, TextField, makeStyles} from '@material-ui/core';
-
+import {Link} from 'react-router-dom';
 import {withFormik} from 'formik';
 import * as Yup from 'yup';
-
-import Logo from '../../assets/Logo.svg';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -74,16 +72,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Login(props) {
-
   const classes = useStyles();
 
-  useEffect(()=>{
-    animateScroll.scrollToTop({smooth: "easeInOutQuad"})
-  },[])
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  }
+  // const [email, setEmail] = React.useState('');
+  // const [password, setPassword] = React.useState('');
 
   return (
       <Grid id='login' className={classes.root}>
@@ -96,6 +88,9 @@ function Login(props) {
                   <TextField
                     className={classes.formFields}
                     fullWidth
+                    required
+                    name='email'
+                    type='email'
                     value={props.values.email}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
@@ -108,6 +103,9 @@ function Login(props) {
                   <TextField
                     className={classes.formFields}
                     fullWidth
+                    required
+                    name='password'
+                    type='password'
                     value={props.values.password}
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
@@ -120,7 +118,7 @@ function Login(props) {
                   <Grid className={classes.loggedIn}>
                     <Checkbox color='primary' /> <p> Keep me logged in </p>
                   </Grid>
-                  <Button color='primary' variant='contained' fullWidth className={classes.submitBtn}> Log In </Button>
+                  <Button type='submit' color='primary' variant='contained' fullWidth className={classes.submitBtn}> Log In </Button>
                 </form>
               </Grid>
               <Grid className={classes.alter}>
@@ -146,7 +144,7 @@ export default withFormik({
   }),
   validationSchema: Yup.object().shape({
     email: Yup.string().email("Valid email required").required('Email is required'),
-    password: Yup.string().password().min(10, "Your password is too short").required('Password is required')
+    password: Yup.string().min(8, "Your password is too short").required('Password is required')
   }),
   handleSubmit: (values, {setSubmitting}) => {
     alert("Form submitted");

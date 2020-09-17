@@ -19,6 +19,7 @@ function Navbar(props) {
               <li className="nav-item"><NavLink className="nav-link js-scroll-trigger" to="/about">About</NavLink></li>
               <li className="nav-item"><NavLink className="nav-link js-scroll-trigger" to="/team">Team</NavLink></li>
               <li className="nav-item"><NavLink className="nav-link js-scroll-trigger" to="/contact">Contact</NavLink></li>
+              <li className="nav-item"><NavLink className="nav-link js-scroll-trigger" to="/login">Login</NavLink></li>
             </ul>
           </div>
         </div>
